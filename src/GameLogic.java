@@ -878,17 +878,22 @@ public class GameLogic implements PlayableLogic {
     public void undoLastMove() {
         if (!cachedEventHistory.isEmpty()) {
             CachedEvent lastCachedEvent = cachedEventHistory.pop();
-            Position from = lastCachedEvent.getFirstA();
-            Position to = lastCachedEvent.getFirstB();
-            ConcretePiece piece = lastCachedEvent.getFirstPiece();
-
+            Position firstA = lastCachedEvent.getFirstA();
+            Position firstB = lastCachedEvent.getFirstB();
+            Position secondA=lastCachedEvent.getSecondA();
+            ConcretePiece pieceA = lastCachedEvent.getFirstPiece();
+            if(lastCachedEvent.secondPiece!=null)
+            {
+                // TODO this means first killed second , we need to rereive secondPiece to secondA and firstPiece to firstA
+                board[secondA.getCol()][secondA.getRow()]=lastCachedEvent.getSecondPiece(); // getting the man back from death :) RESURRECTED
+            }
             // Move the piece back to the original position
-            board[from.getCol()][from.getRow()] = piece;
-            board[to.getCol()][to.getRow()] = null;
+            board[firstA.getCol()][firstA.getRow()] = pieceA;
+            board[firstB.getCol()][firstB.getRow()] = null;
             //TODO 1) remove position from position list of piece
             // 2 ) stepsBoard[to.getCol()][to.getRow()]
-            stepsBoard[to.getCol()][to.getRow()]--;
-            piece.getPositionList().removeLast();
+            stepsBoard[firstB.getCol()][firstB.getRow()]--;
+            pieceA.getPositionList().removeLast();
 
             // Switch back to the previous player
             currentPlayer = (currentPlayer == firstPlayer) ? secondPlayer : firstPlayer;
@@ -902,6 +907,14 @@ public class GameLogic implements PlayableLogic {
 
     // Inner class to represent a move
     private static class CachedEvent {
+        public Position getSecondA() {
+            return secondA;
+        }
+
+        public ConcretePiece getSecondPiece() {
+            return secondPiece;
+        }
+
         private final Position secondA;// for the deceased
         private ConcretePiece secondPiece;
         private final Position firstA;
