@@ -327,6 +327,7 @@ public class GameLogic implements PlayableLogic {
             if (b1 || b2 || b3 || b4) // these functions only return true when the king is dead
             {
                 /// king is dead means Attacker wins means second player...
+                secondPlayer.incrementWins();
                 endGame(this.secondPlayer);
             }
             //TODO check the checks for typing errors cause they are a bit complicated .
@@ -336,6 +337,7 @@ public class GameLogic implements PlayableLogic {
         // but we need to check i he reached a corner or not
         if (is_corner(b.getCol(), b.getRow())) {
             board[b.getCol()][b.getRow()] = null;
+            firstPlayer.incrementWins();
             endGame(this.firstPlayer);
         }
     }
