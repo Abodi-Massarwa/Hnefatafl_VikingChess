@@ -86,7 +86,7 @@ public class GameLogic implements PlayableLogic {
         this.listOfAllPieces.add(this.placePieceAtPosition(new Pawn(secondPlayer), new Position(5, 9)));   // A19
         this.listOfAllPieces.add(this.placePieceAtPosition(new Pawn(secondPlayer), new Position(3, 10)));  // A20
         this.listOfAllPieces.add(this.placePieceAtPosition(new Pawn(secondPlayer), new Position(4, 10)));  // A21
-        this.listOfAllPieces.add(this.placePieceAtPosition(new Pawn(secondPlayer), new Position( 5,10)));  // A22
+        this.listOfAllPieces.add(this.placePieceAtPosition(new Pawn(secondPlayer), new Position(5, 10)));  // A22
         this.listOfAllPieces.add(this.placePieceAtPosition(new Pawn(secondPlayer), new Position(6, 10)));  // A23
         this.listOfAllPieces.add(this.placePieceAtPosition(new Pawn(secondPlayer), new Position(7, 10)));  // A24
       /*  for (Tile[] t:tileBoard)
@@ -163,10 +163,9 @@ public class GameLogic implements PlayableLogic {
         }
         if (winner.isPlayerOne()) {
             for (ConcretePiece p : listOfPiecesPlayerOne) {
-                if(p.getId()==7){
+                if (p.getId() == 7) {
                     System.out.println("K" + p.getId() + ": " + p.getPositionList());
-                }
-                else {
+                } else {
                     System.out.println("D" + p.getId() + ": " + p.getPositionList());
                 }
             }
@@ -179,10 +178,9 @@ public class GameLogic implements PlayableLogic {
                 System.out.println("A" + p.getId() + ": " + p.getPositionList());
             }
             for (ConcretePiece p : listOfPiecesPlayerOne) {
-                if(p.getId()==7){
+                if (p.getId() == 7) {
                     System.out.println("K" + p.getId() + ": " + p.getPositionList());
-                }
-                else {
+                } else {
                     System.out.println("D" + p.getId() + ": " + p.getPositionList());
                 }
             }
@@ -228,7 +226,7 @@ public class GameLogic implements PlayableLogic {
         /*System.out.println("a.getRow() = " + a.getRow() + " ,a.getCol() = " + a.getCol());
         System.out.println("b.getRow() = " + b.getRow() + " ,b.getCol() = " + b.getCol());*/
         ///TODO check if vertical or horizontal to loop over the cols/rows and increment the stepBoard[col][row]
-       // incrementStepsBoard(a, b);
+        // incrementStepsBoard(a, b);
         //cachedEventHistory.push(new CachedEvent(a, b, piece, null,null ));
         //board[b.getCol()][b.getRow()] = piece;
         placePieceAtPosition(piece, b);
@@ -238,7 +236,7 @@ public class GameLogic implements PlayableLogic {
         //TODO scan for possible kill of enemy soldier or king perhaps
         // possibly the game would end if king dies or runs away in one of the corners
         // means endGame() should be used inside this function
-        enemyScanAndKill(piece,a , b);
+        enemyScanAndKill(piece, a, b);
         currentPlayer = isSecondPlayerTurn() ? firstPlayer : secondPlayer;
         return true;
     }
@@ -320,11 +318,11 @@ public class GameLogic implements PlayableLogic {
             Piece left = this.getPieceAtPosition(new Position(j - 1, i));
             Piece right = this.getPieceAtPosition(new Position(j + 1, i));
             //checking each side for an enemy soldier or an enemy king
-            Boolean []killedEnemyPawn={false};
-            boolean b1 = check_up(up, j, i, concretePiece, a,killedEnemyPawn);
-            boolean b2 = check_down(down, j, i, concretePiece,a,killedEnemyPawn );
-            boolean b3 = check_left(left, j, i, concretePiece,a,killedEnemyPawn );
-            boolean b4 = check_right(right, j, i, concretePiece,a,killedEnemyPawn );
+            Boolean[] killedEnemyPawn = {false};
+            boolean b1 = check_up(up, j, i, concretePiece, a, killedEnemyPawn);
+            boolean b2 = check_down(down, j, i, concretePiece, a, killedEnemyPawn);
+            boolean b3 = check_left(left, j, i, concretePiece, a, killedEnemyPawn);
+            boolean b4 = check_right(right, j, i, concretePiece, a, killedEnemyPawn);
             if (b1 || b2 || b3 || b4) // these functions only return true when the king is dead
             {
                 /// king is dead means Attacker wins means second player...
@@ -333,9 +331,8 @@ public class GameLogic implements PlayableLogic {
             }
             //TODO check if you didnt kill an enemy soldier then push event without secondA and secondB.
             // for this we need boolean is_killedEnemyPawn
-            if(!killedEnemyPawn[0])
-            {
-                cachedEventHistory.push(new CachedEvent(a,b,concretePiece,null,null));
+            if (!killedEnemyPawn[0]) {
+                cachedEventHistory.push(new CachedEvent(a, b, concretePiece, null, null));
                 // there is no need to bring anyone from the dead we only push info of the current piece
             }
 
@@ -380,7 +377,7 @@ public class GameLogic implements PlayableLogic {
                 ConcretePiece currentPiece = board[col][row];
                 if ((currentTile != null) && (currentTile.stepCount > 1)) {
                     // ONLY MORE than 1 & non-null
-                    if(!tileArrayList.contains(currentTile)) {
+                    if (!tileArrayList.contains(currentTile)) {
                         tileArrayList.add(new Tile(col, row, currentTile.stepCount));
                     }
                 }
@@ -458,9 +455,9 @@ public class GameLogic implements PlayableLogic {
         for (ConcretePiece cp : listOfAll) {
             if (calculateSquaresMoved(cp) >= 1) {
                 if (cp.getOwner().isPlayerOne()) {
-                    if(cp.getId()==7){
+                    if (cp.getId() == 7) {
                         System.out.println("K" + cp.getId() + ": " + calculateSquaresMoved(cp) + " squares");
-                    }else {
+                    } else {
                         System.out.println("D" + cp.getId() + ": " + calculateSquaresMoved(cp) + " squares");
                     }
                 } else {
@@ -547,10 +544,10 @@ public class GameLogic implements PlayableLogic {
                 Piece right_right = getPieceAtPosition(new Position(j + 2, i)); // returns null in 2 cases 1.out of bounds 2.no piece
                 if ((right_right != null && right_right.getOwner() == this.currentPlayer && !(right_right instanceof King)) || (j + 2 == BOARD_SIZE) || (is_corner(j + 2, i))) {
                     // Ladies and gentlemen es hora de comer
-                    cachedEventHistory.push(new CachedEvent(oldPosition, new Position(j,i), current, new Position(j+1,i), (ConcretePiece) right)); // TODO when killing someone u save his place and him and ur place
+                    cachedEventHistory.push(new CachedEvent(oldPosition, new Position(j, i), current, new Position(j + 1, i), (ConcretePiece) right)); // TODO when killing someone u save his place and him and ur place
                     board[j + 1][i] = null;
                     ((ConcretePiece) current).incrementNumOfKills();
-                    killedEnemyPawn[0]=true;
+                    killedEnemyPawn[0] = true;
                     return false;
                 }
 
@@ -563,21 +560,21 @@ public class GameLogic implements PlayableLogic {
                         && (right_down != null && right_down.getOwner() == this.currentPlayer)) {
                     // if all exist and are friendly soldiers , kill the king bro ...
                     board[j + 1][i] = null;
-                  //  ((ConcretePiece) current).incrementNumOfKills();
+                    //  ((ConcretePiece) current).incrementNumOfKills();
                     return true;
                     // TODO end the game
 
                 } else if ((j + 2 == BOARD_SIZE) && (right_up != null && right_up.getOwner() == this.currentPlayer)
                         && (right_down != null && right_down.getOwner() == this.currentPlayer)) {
                     board[j + 1][i] = null;
-                   // ((ConcretePiece) current).incrementNumOfKills();
+                    // ((ConcretePiece) current).incrementNumOfKills();
                     return true;
                     // TODO end the game
 
                 } else if ((right_right != null && right_right.getOwner() == this.currentPlayer) && (right_up != null && right_up.getOwner() == this.currentPlayer)
                         && (i + 1 == BOARD_SIZE)) {
                     board[j + 1][i] = null;
-                   /// ((ConcretePiece) current).incrementNumOfKills();
+                    /// ((ConcretePiece) current).incrementNumOfKills();
                     return true;
                     // TODO end the game
 
@@ -591,7 +588,7 @@ public class GameLogic implements PlayableLogic {
                 }
             }
         }
-       // cachedEventHistory.push(new CachedEvent(oldPosition, new Position(j,i), current, null, null)); // TODO when killing someone u save his place and him and ur place
+        // cachedEventHistory.push(new CachedEvent(oldPosition, new Position(j,i), current, null, null)); // TODO when killing someone u save his place and him and ur place
         return false;
     }
 
@@ -602,11 +599,11 @@ public class GameLogic implements PlayableLogic {
                 Piece left_left = getPieceAtPosition(new Position(j - 2, i)); // returns null in 2 cases 1.out of bounds 2.no piece
                 if ((left_left != null && left_left.getOwner() == this.currentPlayer && !(left_left instanceof King)) || (j - 2 == -1) || (is_corner(j - 2, i))) {
                     // Ladies and gentlemen es hora de comer
-                    cachedEventHistory.push(new CachedEvent(oldPosition, new Position(j,i), current, new Position(j-1,i), (ConcretePiece) left)); // TODO when killing someone u save his place and him and ur place
+                    cachedEventHistory.push(new CachedEvent(oldPosition, new Position(j, i), current, new Position(j - 1, i), (ConcretePiece) left)); // TODO when killing someone u save his place and him and ur place
                     board[j - 1][i] = null;
                     ((ConcretePiece) current).incrementNumOfKills();
-                    killedEnemyPawn[0]=true;
-                     return false;
+                    killedEnemyPawn[0] = true;
+                    return false;
                 }
 
 
@@ -619,14 +616,14 @@ public class GameLogic implements PlayableLogic {
                         && (left_down != null && left_down.getOwner() == this.currentPlayer)) {
                     // if all exist and are friendly soldiers , kill the king bro ...
                     board[j - 1][i] = null;
-                   // ((ConcretePiece) current).incrementNumOfKills();
+                    // ((ConcretePiece) current).incrementNumOfKills();
                     return true;
                     // TODO end the game
 
                 } else if ((j - 2 == -1) && (left_up != null && left_up.getOwner() == this.currentPlayer)
                         && (left_down != null && left_down.getOwner() == this.currentPlayer)) {
                     board[j - 1][i] = null;
-                   // ((ConcretePiece) current).incrementNumOfKills();
+                    // ((ConcretePiece) current).incrementNumOfKills();
                     return true;
                     // TODO end the game
 
@@ -658,10 +655,10 @@ public class GameLogic implements PlayableLogic {
                 Piece down_down = getPieceAtPosition(new Position(j, i + 2)); // returns null in 2 cases 1.out of bounds 2.no piece
                 if ((down_down != null && down_down.getOwner() == this.currentPlayer && !(down_down instanceof King)) || (i + 2 == BOARD_SIZE) || (is_corner(j, i + 2))) {
                     // Ladies and gentlemen es hora de comer
-                    cachedEventHistory.push(new CachedEvent(oldPosition, new Position(j,i), current, new Position(j,i+1), (ConcretePiece) down)); // TODO when killing someone u save his place and him and ur place
+                    cachedEventHistory.push(new CachedEvent(oldPosition, new Position(j, i), current, new Position(j, i + 1), (ConcretePiece) down)); // TODO when killing someone u save his place and him and ur place
                     board[j][i + 1] = null;
                     ((ConcretePiece) current).incrementNumOfKills();
-                    killedEnemyPawn[0]=true;
+                    killedEnemyPawn[0] = true;
                     return false;
                 }
 
@@ -681,14 +678,14 @@ public class GameLogic implements PlayableLogic {
                 } else if ((i + 2 == BOARD_SIZE) && (down_left != null && down_left.getOwner() == this.currentPlayer)
                         && (down_right != null && down_right.getOwner() == this.currentPlayer)) {
                     board[j][i + 1] = null;
-                  //  ((ConcretePiece) current).incrementNumOfKills();
+                    //  ((ConcretePiece) current).incrementNumOfKills();
                     return true;
                     // TODO end the game
 
                 } else if ((down_down != null && down_down.getOwner() == this.currentPlayer) && (down_left != null && down_left.getOwner() == this.currentPlayer)
                         && (j + 1 == BOARD_SIZE)) {
                     board[j][i + 1] = null;
-                   // ((ConcretePiece) current).incrementNumOfKills();
+                    // ((ConcretePiece) current).incrementNumOfKills();
                     return true;
                     // TODO end the game
 
@@ -696,7 +693,7 @@ public class GameLogic implements PlayableLogic {
                         && (down_right != null && down_right.getOwner() == this.currentPlayer)) {
 
                     board[j][i + 1] = null;
-                   // ((ConcretePiece) current).incrementNumOfKills();
+                    // ((ConcretePiece) current).incrementNumOfKills();
                     return true;
                     // TODO end the game
                 }
@@ -714,10 +711,10 @@ public class GameLogic implements PlayableLogic {
                 Piece up_up = getPieceAtPosition(new Position(j, i - 2)); // returns null in 2 cases 1.out of bounds 2.no piece
                 if ((up_up != null && up_up.getOwner() == this.currentPlayer && !(up_up instanceof King)) || (i - 2 == -1) || (is_corner(j, i - 2))) {
                     // Ladies and gentlemen es hora de comer
-                    cachedEventHistory.push(new CachedEvent(oldPosition, new Position(j,i), current, new Position(j,i-1), (ConcretePiece) up)); // TODO when killing someone u save his place and him and ur place
+                    cachedEventHistory.push(new CachedEvent(oldPosition, new Position(j, i), current, new Position(j, i - 1), (ConcretePiece) up)); // TODO when killing someone u save his place and him and ur place
                     board[j][i - 1] = null;
                     ((ConcretePiece) current).incrementNumOfKills();
-                    killedEnemyPawn[0]=true;
+                    killedEnemyPawn[0] = true;
                     return false;
                 }
 
@@ -737,14 +734,14 @@ public class GameLogic implements PlayableLogic {
                 } else if ((i - 2 == -1) && (up_left != null && up_left.getOwner() == this.currentPlayer)
                         && (up_right != null && up_right.getOwner() == this.currentPlayer)) {
                     board[j][i - 1] = null;
-                   // ((ConcretePiece) current).incrementNumOfKills();
+                    // ((ConcretePiece) current).incrementNumOfKills();
                     return true;
                     // TODO end the game
 
                 } else if ((up_up != null && up_up.getOwner() == this.currentPlayer) && (up_left != null && up_left.getOwner() == this.currentPlayer)
                         && (j + 1 == BOARD_SIZE)) {
                     board[j][i - 1] = null;
-                  //  ((ConcretePiece) current).incrementNumOfKills();
+                    //  ((ConcretePiece) current).incrementNumOfKills();
                     return true;
                     // TODO end the game
 
@@ -752,7 +749,7 @@ public class GameLogic implements PlayableLogic {
                         && (up_right != null && up_right.getOwner() == this.currentPlayer)) {
 
                     board[j][i - 1] = null;
-                   // ((ConcretePiece) current).incrementNumOfKills();
+                    // ((ConcretePiece) current).incrementNumOfKills();
                     return true;
                     // TODO end the game
                 }
@@ -893,14 +890,13 @@ public class GameLogic implements PlayableLogic {
             CachedEvent lastCachedEvent = cachedEventHistory.pop();
             Position firstA = lastCachedEvent.getFirstA();
             Position firstB = lastCachedEvent.getFirstB();
-            Position secondA=lastCachedEvent.getSecondA();
+            Position secondA = lastCachedEvent.getSecondA();
             ConcretePiece pieceA = lastCachedEvent.getFirstPiece();
             //System.out.println(lastCachedEvent.secondPiece);
-            if(lastCachedEvent.secondPiece!=null)
-            {
+            if (lastCachedEvent.secondPiece != null) {
                 System.out.println("second piece not null!!!!!!!!!!!!!!");
                 // TODO this means first killed second , we need to rereive secondPiece to secondA and firstPiece to firstA
-                board[secondA.getCol()][secondA.getRow()]=lastCachedEvent.getSecondPiece(); // getting the man back from death :) RESURRECTED
+                board[secondA.getCol()][secondA.getRow()] = lastCachedEvent.getSecondPiece(); // getting the man back from death :) RESURRECTED
             }
             // Move the piece back to the original position
             board[firstA.getCol()][firstA.getRow()] = pieceA;
@@ -940,8 +936,8 @@ public class GameLogic implements PlayableLogic {
             this.firstA = firstA;
             this.firstB = firstB;
             this.firstPiece = firstPiece;
-            this.secondA=secondA;
-            this.secondPiece=secondPiece;
+            this.secondA = secondA;
+            this.secondPiece = secondPiece;
         }
 
         public Position getFirstA() {
