@@ -894,7 +894,7 @@ public class GameLogic implements PlayableLogic {
             ConcretePiece pieceA = lastCachedEvent.getFirstPiece();
             //System.out.println(lastCachedEvent.secondPiece);
             if (lastCachedEvent.secondPiece != null) {
-                System.out.println("second piece not null!!!!!!!!!!!!!!");
+                //System.out.println("second piece not null!!!!!!!!!!!!!!");
                 // TODO this means first killed second , we need to rereive secondPiece to secondA and firstPiece to firstA
                 board[secondA.getCol()][secondA.getRow()] = lastCachedEvent.getSecondPiece(); // getting the man back from death :) RESURRECTED
             }
